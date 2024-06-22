@@ -47,6 +47,7 @@ func ticTacToeHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		last = 0
 	}
+	gameFinishedHandler(w, r)
 }
 
 func boardHandler(w http.ResponseWriter, r *http.Request) {
@@ -75,9 +76,28 @@ func boardHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, tictactoe.Board(ticTacToeBoard))
 }
 
+func gameFinishedHandler(w http.ResponseWriter, r *http.Request) {
+	if tictactoe.CheckWin(ticTacToeBoard) != 0 {
+		fmt.Fprintf(w, "Player %d wins", tictactoe.CheckWin(ticTacToeBoard))
+		return
+	}
+	if tictactoe.CheckDraw(ticTacToeBoard) {
+		fmt.Fprintf(w, "It's a draw")
+		return
+	}
+	fmt.Fprintf(w, "Game is not finished")
+}
+
+func resetGameGameHandler(w http.ResponseWriter, r *http.Request) {
+	ticTacToeBoard = [3][3]int{}
+	last = 0
+}
+
 func main() {
 	http.HandleFunc("/what/", whatHandler)
 	http.HandleFunc("/tic-tac-toe/", ticTacToeHandler)
 	http.HandleFunc("/board/", boardHandler)
+	http.HandleFunc("/game-finished/", gameFinishedHandler)
+	http.HandleFunc("/reset-game/", resetGameGameHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
