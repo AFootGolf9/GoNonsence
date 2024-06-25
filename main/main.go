@@ -51,28 +51,6 @@ func ticTacToeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func boardHandler(w http.ResponseWriter, r *http.Request) {
-	// for i := 0; i < 5; i++ {
-	// 	if i%2 == 0 {
-	// 		for j := 0; j < 5; j++ {
-	// 			if j%2 == 0 {
-	// 				if ticTacToeBoard[i/2][j/2] == 0 {
-	// 					fmt.Fprintf(w, " ")
-	// 				}
-	// 				if ticTacToeBoard[i/2][j/2] == 1 {
-	// 					fmt.Fprintf(w, "X")
-	// 				}
-	// 				if ticTacToeBoard[i/2][j/2] == 2 {
-	// 					fmt.Fprintf(w, "O")
-	// 				}
-	// 			} else {
-	// 				fmt.Fprintf(w, "|")
-	// 			}
-	// 		}
-	// 	} else {
-	// 		fmt.Fprintf(w, "-+-+-")
-	// 	}
-	// }
-
 	fmt.Fprint(w, tictactoe.Board(ticTacToeBoard))
 }
 
