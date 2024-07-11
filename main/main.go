@@ -71,11 +71,17 @@ func resetGameGameHandler(w http.ResponseWriter, r *http.Request) {
 	last = 0
 }
 
+func testHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Test")
+	fmt.Fprintf(w, "Test")
+}
+
 func main() {
 	http.HandleFunc("/what/", whatHandler)
 	http.HandleFunc("/tic-tac-toe/", ticTacToeHandler)
 	http.HandleFunc("/board/", boardHandler)
 	http.HandleFunc("/game-finished/", gameFinishedHandler)
 	http.HandleFunc("/reset-game/", resetGameGameHandler)
+	http.HandleFunc("/test/", testHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
